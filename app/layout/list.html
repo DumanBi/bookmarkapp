@@ -1,0 +1,54 @@
+<md-content data-ng-controller="ListCtrl as bm">
+  <h2 layout="row" layout-align="center center">
+    <div>
+      Filtered by Tag:
+      <span data-ng-show="bm.filter">
+        {{bm.filter}}
+      </span>
+      <span data-ng-hide="bm.filter">
+        None
+      </span> |
+      <a href="#/">Clear Filter</a>
+    </div>
+    <md-input-container class="perPage">
+      <label>Items per page</label>
+      <input type="number" min='5' max='20' data-ng-model="bm.perPageCount">
+    </md-input-container>
+  </h2>
+
+  <md-list class="change-height">
+    <md-list-item class="md-2-line"
+      dir-paginate="list in bm.vm.list | orderBy: '-' | filter:bm.filter | itemsPerPage: bm.perPageCount"
+      current-page="bm.currentPage"
+      pagination-id="tagsList">
+
+      <div class="md-list-item-text">
+        {{list.title}}
+        (<a href="{{list.url}}" target="_blank">{{list.url}}</a>) |
+        <md-chips class="custom-chips override" readonly="true" data-ng-model="list.tags">
+          <md-chip-template>
+            <span>{{$chip}}</span>
+          </md-chip-template>
+        </md-chips>
+      </div>
+
+      <md-button class="md-raised" data-ng-click="bm.edit(list.id)">
+        Edit
+      </md-button>
+      <md-button class="md-raised md-warn" data-ng-click="bm.remove(list.id)">
+        Delete
+      </md-button>
+      <md-divider ng-if="!$last"></md-divider>
+
+    </md-list-item>
+  </md-list>
+
+  <div layout="row" layout-align="center center">
+    <dir-pagination-controls max-size="5"
+      on-page-change="bm.goToPage(bm.currentPage)"
+      direction-links="true"
+      boundary-links="true"
+      pagination-id="tagsList">
+    </dir-pagination-controls>
+  </div>
+</md-content>

@@ -1,0 +1,10 @@
+<div data-ng-controller="TagsCtrl as bm">
+  <h2>Bookmark's Tags</h2>
+  <md-list>
+    <md-list-item data-ng-repeat="tag in bm.tags">
+      <a href="#/filter/{{tag.tagName}}">
+        {{tag.tagName}}({{tag.tagLength}})
+      </a>
+    </md-list-item>
+  </md-list>
+</div>

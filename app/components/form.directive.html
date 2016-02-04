@@ -1,0 +1,29 @@
+<form name="bmForm">
+  <md-input-container flex class="md-icon-float md-block">
+    <label for="url">Bookmark URL</label>
+    <input type="url" name="url" data-ng-model="bm.url" required autofocus>
+  </md-input-container>
+
+  <md-input-container flex class="md-icon-float md-block">
+    <label for="title">Bookmark Title</label>
+    <input type="text" name="title" data-ng-model="bm.title" required>
+  </md-input-container>
+
+  <md-chips
+        ng-model="bm.tags"
+        placeholder="Enter a tag"
+        delete-button-label="Remove Tag"
+        delete-hint="Press delete to remove tag"
+        secondary-placeholder="+Tag">
+  </md-chips>
+
+  <md-button
+    data-ng-click="bm.save()"
+    data-ng-disabled="bmForm.$invalid || !bm.tags[0]"
+    class="md-raised md-primary">
+      Save
+  </md-button>
+  <md-button class="md-raised" data-ng-click="bm.clear();" >
+    Clear
+  </md-button>
+</form>

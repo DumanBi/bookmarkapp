@@ -1,0 +1,10 @@
+<div flex layout="row" layout-padding layout-margin>
+  <md-sidenav flex md-is-locked-open="true" class="md-whiteframe-z2">
+    <ng-include src="'app/layout/tags.html'"></ng-include>
+  </md-sidenav>
+
+  <md-content flex layout-padding layout-margin id="content" class="md-whiteframe-4dp">
+    <ng-include src="'app/layout/create.html'"></ng-include>
+    <ng-include src="'app/layout/list.html'"></ng-include>
+  </md-content>
+</div>
