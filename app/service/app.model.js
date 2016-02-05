@@ -5,11 +5,14 @@
     .module('bookmarkapp')
     .factory('AppModel', AppModel);
 
-  AppModel.$inject = ['MockService', 'RestService'];
+  AppModel.$inject = ['MockService', '$firebaseObject', 'FB'];
 
-  function AppModel(MockService, RestService) {
+  function AppModel(MockService, $firebaseObject, FB) {
 
-    var _self = {};
+    var ref = new Firebase(FB);
+    var _self = $firebaseObject(ref);
+
+    // var _self = {};
 
     return {
       set: set,
@@ -21,7 +24,7 @@
     function set(key, value, who) {
       // console.info(who, 'set in Data Service', key, '=', value);
       _self[key] = value;
-      if(who !== 'RUN') RestService.update(_self);
+      if(who !== 'RUN') _self.$save();
       // if(who !== 'RUN') MockService.post('tags', _self);
     }
 
@@ -41,7 +44,7 @@
         array.push(value);
         _self[key] = array;
       }
-      RestService.update(_self);
+      _self.$save();
       // MockService.post('tags', _self);
     }
 
@@ -51,14 +54,14 @@
           _self[key].splice(index, 1);
         }
       });
-      RestService.update(_self);
+      _self.$save();
       // MockService.post('tags', _self);
     }
 
     function rewrite(values, who) {
       // console.info(who, 'in Data Service rewrite to', values);
       angular.extend(_self, values);
-      RestService.update(_self);
+      _self.$save();
       // MockService.post('tags', _self);
     }
   }
